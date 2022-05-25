@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import TodoModels
-
+from django.http import HttpResponse
 from .forms import TodoForms
 
 
@@ -38,3 +38,7 @@ def DeleteTodoView(request, pk):
         return redirect("/")
     context = {"form":todo}
     return render(request, "delete-todo.html", context)
+
+
+def Test(request):
+    return HttpResponse("Salom bu test uchun edi")
