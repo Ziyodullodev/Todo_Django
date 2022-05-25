@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update todo</title>
+</head>
+<body>
+<h3>Ziyodullo's project</h3>
+
+<form method="post">{% csrf_token %}
+    {{form}}
+    <input type="submit" name="Update Todo">
+</form>
+</body>
+</html>
