@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <title>ToDo List</title>
+  </head>
+  <body>
+    <header>
+      <h1>ToDo List</h1>
+      <form id="new-task-form" method="post">{% csrf_token %}
+        <input
+          type="text"
+          id="new-task-input"
+          name="title"
+          placeholder="What do you have planned?"
+        />
+        <input type="submit" id="new-task-submit" value="Add task" />
+      </form>
+    </header>
+
+    <main>
+      <section class="task-list">
+        <h2>Task</h2>
+        <div id="tasks">
+          
+          {% for task in tasks %}
+          
+          <div class="task">
+            <div class="content">
+              {% if task.id == form.id  %}
+              <form method="post" action="{% url 'edit-task' task.id %}" >{% csrf_token %}
+              <input type="text" name="title" value="{{task.title}}" class="text"/>
+              
+            </form>
+              {% else %}
+              <input type="text" value="{{task.title}}" class="text" readonly />
+              {% endif %}
+            </div>
+            
+            <div class="actions">
+              {{task.date}}
+              <a href="{{task.id}}"><button class="edit" >Edit</button></a> 
+              <a href="del/{{task.id}}"> <button class="delete">Delete</button></a> 
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+    <button id="hello">click</button>
+    <script src="main.js"></script>
+  </body>
+</html>
