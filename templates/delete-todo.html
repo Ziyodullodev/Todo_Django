@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Todo</title>
+</head>
+<body>
+<p>Are you sure you want to delete <span>"{{form}}"</span> ??</p>
+<form method="post">{% csrf_token %}
+    <a href="{% url 'home' %}">Cancal</a>
+    <input type="submit" name="Confirm">
+
+</form>
+
+</body>
+</html>
