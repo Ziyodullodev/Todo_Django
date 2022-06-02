@@ -5,7 +5,7 @@ from .forms import TodoForms, UpdateTodo
 # from django.contrib.gis.geoip2 import GeoIP2
 
 def get_client_ip(request):
-    user = request.user
+    user = request.user.id
     resp = HttpResponse(f"Sizning ip adresingiz: {user}")
     resp.set_cookie(key='user', value=user, httponly=True)
     return resp
