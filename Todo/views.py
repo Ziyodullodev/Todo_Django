@@ -2,15 +2,13 @@ from django.shortcuts import render, redirect
 from .models import TodoModels
 from django.http import HttpResponse
 from .forms import TodoForms, UpdateTodo
-
+# from django.contrib.gis.geoip2 import GeoIP2
 
 def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[-1].strip()
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return HttpResponse(f"Sizning ip adresingiz: {ip}")
+    user = request.user
+    resp = HttpResponse(f"Sizning ip adresingiz: {user}")
+    resp.set_cookie(key='user', value=user, httponly=True)
+    return resp
 
 
 def TodoView(request):
