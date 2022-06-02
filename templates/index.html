@@ -17,7 +17,9 @@
           id="new-task-input"
           name="title"
           placeholder="What do you have planned?"
+          value="{{edit.title}}"
         />
+
         <input type="submit" id="new-task-submit" value="Add task" />
       </form>
     </header>
@@ -30,28 +32,34 @@
           {% for task in tasks %}
           
           <div class="task">
-            <div class="content">
-              {% if task.id == form.id  %}
-              <form method="post" action="{% url 'edit-task' task.id %}" >{% csrf_token %}
-              <input type="text" name="title" value="{{task.title}}" class="text"/>
-              
-            </form>
-              {% else %}
-              <input type="text" value="{{task.title}}" class="text" readonly />
-              {% endif %}
-            </div>
             
+            {% if task.complate == False %}
+            <div class="content">
+              
+              <p style="font-size: 1.2rem; color: #fff;">{{task.title}}</p>
+              
+            </div>
             <div class="actions">
-              {{task.date}}
+              <a href="{% url 'end-task' task.id %}"><button class="edit" >Complated</button></a> 
               <a href="{{task.id}}"><button class="edit" >Edit</button></a> 
               <a href="del/{{task.id}}"> <button class="delete">Delete</button></a> 
             </div>
+            {% else %}
+            <div class="content">
+              <strike style="font-size: 1.2rem; color: var(--gray); margin-bottom: 1rem;">{{task.title}}</strike>
+              
+              
+            </div>
+            <div class="actions">
+              <a href="{% url 'start-task' task.id %}"><button class="edit" >Start-task</button></a> 
+              <a href="del/{{task.id}}"> <button class="delete">Delete</button></a> 
+            </div>
+            {% endif %}
           </div>
           {% endfor %}
         </div>
       </section>
     </main>
     <button id="hello">click</button>
-    <script src="main.js"></script>
   </body>
 </html>

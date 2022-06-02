@@ -21,31 +21,34 @@ def TodoView(request):
 def UpdateTodoView(request, pk):
     todo = TodoModels.objects.all()
     todo1 = TodoModels.objects.get(id=pk)
-    # form = UpdateTodo(instance=todo1)
 
     if request.method == "POST":
         post = request.POST.get('title')
         todo1.title = post
         todo1.save()
-        # todo1 = TodoModels.objects.get(id=pk)
-        print(post, pk)
         return redirect("/")
 
     context = {
         "tasks":todo,
-        'edit':pk, 
-        "form":todo1, 
+        'edit':todo1.title, 
         }
-    print(pk)
     return render(request, "index.html", context)
 
 def DeleteTodoView(request, pk):
     todo = TodoModels.objects.get(id=pk)
     todo.delete()
     return redirect("/")
-    # context = {"form":todo}
-    # return render(request, "delete-todo.html", context)
 
+def ComplatedTask(request, pk):
+    todo = TodoModels.objects.get(id=pk)
+    todo.complate = False
+    todo.save()
+    print("end", todo.complate)
+    return redirect("/")
 
-def Test(request):
-    return HttpResponse("Salom bu test uchun edi")
+def StartTask(request, pk):
+    todo = TodoModels.objects.get(id=pk)
+    todo.complate = True
+    todo.save()
+    print("start", todo.complate)
+    return redirect("/")
